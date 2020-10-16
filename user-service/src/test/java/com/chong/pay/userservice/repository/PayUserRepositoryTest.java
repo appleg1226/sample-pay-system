@@ -1,6 +1,9 @@
 package com.chong.pay.userservice.repository;
 
 import com.chong.pay.userservice.domain.PayUser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.*;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +33,7 @@ class PayUserRepositoryTest {
                 .chargeMethods(new HashMap<>())
                 .build();
 
+
         PayUser originalResult = repository.save(payUser1).block();
 
         Mono<PayUser> foundResult = repository.findById("1");
@@ -42,7 +48,4 @@ class PayUserRepositoryTest {
 
         repository.deleteById("1").subscribe();
     }
-
-
-
 }
