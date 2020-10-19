@@ -1,49 +1,50 @@
-package com.chong.pay.userservice.service.card;
+package com.chong.pay.userservice.service.register.card;
 
-import com.chong.pay.userservice.domain.CardRegister;
+import com.chong.pay.userservice.domain.charge.RegisterForm;
+import com.chong.pay.userservice.service.register.Connector;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 
 @Component
 @Log
-public class CardCompanyConnector {
+public class CardCompanyConnector implements Connector {
 
     private CardCompany cardCompany;
 
-    public void setCardCompany(CardRegister cardRegister){
-        switch (cardRegister.getCardCompany()){
-            case BD:
+    public void setCompany(RegisterForm registerForm){
+        switch (registerForm.getCompanyName()){
+            case "BD":
                 this.cardCompany = new BDCard();
                 break;
-            case MASTAR:
+            case "MASTAR":
                 this.cardCompany = new MastarCard();
                 break;
-            case KAKEO:
+            case "KAKEO":
                 this.cardCompany = new KakeoCard();
                 break;
-            case ORI:
+            case "ORI":
                 this.cardCompany = new OriCard();
                 break;
         }
     }
 
-    public boolean isValid(CardRegister cardRegister){
+    public boolean isValid(RegisterForm registerForm){
         log.info("Validating Card... 1s");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return cardCompany.isValidCard(cardRegister);
+        return cardCompany.isValidCard(registerForm);
     }
 
-    public boolean registerCard(CardRegister cardRegister){
+    public boolean registerCard(RegisterForm registerForm){
         log.info("Registering Card... 1s");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return cardCompany.registerCard(cardRegister);
+        return cardCompany.registerCard(registerForm);
     }
 }
