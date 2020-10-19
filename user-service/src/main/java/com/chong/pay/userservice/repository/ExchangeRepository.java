@@ -1,9 +1,10 @@
 package com.chong.pay.userservice.repository;
 
 import com.chong.pay.userservice.domain.Exchange;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-import reactor.core.publisher.Flux;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ExchangeRepository extends ReactiveMongoRepository<Exchange, Long> {
-    Flux<Exchange> findAllByMyId(String myId);
+import java.util.List;
+
+public interface ExchangeRepository extends MongoRepository<Exchange, String> {
+    List<Exchange> findAllByMyId(String myId);
 }

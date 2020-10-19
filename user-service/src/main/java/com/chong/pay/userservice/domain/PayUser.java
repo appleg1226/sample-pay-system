@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -15,9 +16,14 @@ import java.util.Map;
 @Builder
 @Document
 public class PayUser {
+    public enum ChargeMethod {
+        CARD, BANK_ACCOUNT
+    }
+
     @Id
     private String userId;
     private String email;
-    private Map<ChargeMethod, String> chargeMethods;
+    private Set<ChargeMethod> chargeMethods;
+    private Set<CardCompanyName> cardCompanyNames;
     private long payMoney;
 }

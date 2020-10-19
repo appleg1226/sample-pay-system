@@ -22,7 +22,7 @@ public class Exchange {
     private EXCHANGE_TYPE exchangeType;
     private String myId;
     private String otherId;
-    private long money;
+    private long money;     // 음수이면 송금, 양수이면 받음
     private LocalDateTime exchangeDate;
     private boolean isComplete;
 }
