@@ -3,12 +3,14 @@
 ## 개요
 기존 페이 시스템의 기능을 모방하여 주요 기능들의 로직을 작성하는 연습 프로젝트.  
 확장성 있는 시스템 개발 / 테스트 주도 개발을 실천하며 진행하는 프로젝트. 
+<br/>
 
 ## 사용 예정인 기술 스택
 - dev: java8, maven, Spring boot, spring security(jwt), spring batch, spring caching, 
        spring data mongo, spring cloud
 - middle: RabbitMQ(docker), Redis(docker), MongoDB(docker), ELK Stack(docker)
 - ci/cd: docker, jenkins, kubernetes, aws(ec2), github
+<br/>
 
 ## 페이 시스템 개요
 - 페이머니 충전  
@@ -41,6 +43,7 @@
 - 리포트 전송(배치)  
 유저에게 이달의 사용기록에 대하여 일정 주기마다 리포트 전송하기.  
 각 가게에 정산하고 그 기록은 따로 보관할 것.  
+<br/>
 
 ## 모듈 설명
 
