@@ -1,11 +1,15 @@
 package com.chong.pay.userservice.service;
 
-import com.chong.pay.userservice.domain.CardRegister;
+import com.chong.pay.userservice.domain.charge.BankRegister;
+import com.chong.pay.userservice.domain.charge.CardRegister;
 import com.chong.pay.userservice.domain.Exchange;
 import com.chong.pay.userservice.domain.PayUser;
+import com.chong.pay.userservice.domain.charge.RegisterForm;
 import com.chong.pay.userservice.repository.ExchangeRepository;
 import com.chong.pay.userservice.repository.PayUserRepository;
-import com.chong.pay.userservice.service.card.CardCompanyConnector;
+import com.chong.pay.userservice.service.register.Connector;
+import com.chong.pay.userservice.service.register.BankAccountConnector;
+import com.chong.pay.userservice.service.register.CardCompanyConnector;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -22,7 +26,6 @@ public class UserInformationService {
 
     private final ExchangeRepository exchangeRepository;
     private final PayUserRepository payUserRepository;
-    private final CardCompanyConnector cardConnector;
 
     // 0. 유저 데이터 조회
     public PayUser showUserInfo(String userId){
@@ -85,35 +88,45 @@ public class UserInformationService {
                 .collect(Collectors.toList());
     }
 
-    // 7. 유저 잔액 변경
-    public long addUsersMoney(String userId, long money){
-        PayUser result = payUserRepository.findById(userId).orElseThrow(NoSuchElementException::new);
-        result.setPayMoney(result.getPayMoney() + money);
-        return payUserRepository.save(result).getPayMoney();
-    }
 
-    // 8. Card 등록
-    public void registerCard(String userId, CardRegister cardRegister){
+    // 7. 카드 or 계좌 등록
+    public boolean registerChargeMethod(String userId, RegisterForm registerForm){
         PayUser result = payUserRepository.findById(userId).orElseThrow(NoSuchElementException::new);
 
-        // 해당 카드회사 객체 등록
-        cardConnector.setCardCompany(cardRegister);
+        String companyName = registerForm.getCompanyName();
+        Connector connector;
+        PayUser.ChargeMethod type;
 
-        // 카드 등록 가능 여부 확인
-        cardConnector.isValid(cardRegister);
+        if(registerForm instanceof CardRegister){
+            connector = new CardCompanyConnector();
+            type = PayUser.ChargeMethod.CARD;
+        } else{
+            connector = new BankAccountConnector();
+            type = PayUser.ChargeMethod.BANK_ACCOUNT;
+        }
 
-        // 카드회사에 카드 등록 요청
-        cardConnector.registerCard(cardRegister);
+        connector.setCompany(registerForm);
 
-        // 카드 등록 정보 업데이트
-        result.getChargeMethods().add(PayUser.ChargeMethod.CARD);
-        result.getCardCompanyNames().add(cardRegister.getCardCompany());
-        payUserRepository.save(result);
+        if(connector.isValid(registerForm)){
+            connector.registerCard(registerForm);
+            result.getChargeMethods().add(type);
+            payUserRepository.save(updateResultToDatabase(result, type, companyName));
+            return true;
+        } else {
+            log.info("not valid!");
+            return false;
+        }
     }
 
-    // 9. 계좌 등록
-    public void registerAccount(){
-
+    public static PayUser updateResultToDatabase(PayUser user, PayUser.ChargeMethod type, String companyName){
+        if(type.equals(PayUser.ChargeMethod.CARD)){
+            user.getChargeMethods().add(PayUser.ChargeMethod.CARD);
+            user.getCardCompanyNames().add(companyName);
+        } else{
+            user.getChargeMethods().add(PayUser.ChargeMethod.BANK_ACCOUNT);
+            user.getBankCompanyNames().add(companyName);
+        }
+        return user;
     }
 
 }

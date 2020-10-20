@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -24,6 +23,7 @@ public class PayUser {
     private String userId;
     private String email;
     private Set<ChargeMethod> chargeMethods;
-    private Set<CardCompanyName> cardCompanyNames;
+    private Set<String> cardCompanyNames;
+    private Set<String> bankCompanyNames;
     private long payMoney;
 }

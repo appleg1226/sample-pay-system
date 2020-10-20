@@ -1,7 +1,7 @@
 package com.chong.pay.userservice.service;
 
-import com.chong.pay.userservice.domain.CardCompanyName;
-import com.chong.pay.userservice.domain.CardRegister;
+import com.chong.pay.userservice.domain.charge.BankRegister;
+import com.chong.pay.userservice.domain.charge.CardRegister;
 import com.chong.pay.userservice.domain.Exchange;
 import com.chong.pay.userservice.domain.PayUser;
 import com.chong.pay.userservice.repository.ExchangeRepository;
@@ -14,9 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +37,10 @@ class UserInformationServiceTest {
     void addSampleDatas(){
         PayUser payUser = PayUser.builder()
                 .userId("chong").email("dmschd92@naver.com").payMoney(5000L)
-                .chargeMethods(new HashSet<>()).cardCompanyNames(new HashSet<>()).build();
+                .chargeMethods(new HashSet<>())
+                .cardCompanyNames(new HashSet<>())
+                .bankCompanyNames(new HashSet<>())
+                .build();
         payUserRepository.save(payUser);
 
         Exchange exchange1 = Exchange.builder()
@@ -104,25 +107,37 @@ class UserInformationServiceTest {
     @Test
     void cardRegisterTest(){
         CardRegister bdCard = CardRegister.builder()
-                .cardCompany(CardCompanyName.BD).cardNum("1111").yaer(21).month(1).cvc(111).build();
+                .cardCompany("BD").cardNum("1111").yaer(21).month(1).cvc(111).build();
         CardRegister mastarCard = CardRegister.builder()
-                .cardCompany(CardCompanyName.MASTAR).cardNum("2222").yaer(21).month(2).cvc(111).build();
+                .cardCompany("MASTAR").cardNum("2222").yaer(21).month(2).cvc(111).build();
         CardRegister kakeoCard = CardRegister.builder()
-                .cardCompany(CardCompanyName.KAKEO).cardNum("3333").yaer(21).month(3).cvc(111).build();
+                .cardCompany("KAKEO").cardNum("3333").yaer(21).month(3).cvc(111).build();
         CardRegister oriCard = CardRegister.builder()
-                .cardCompany(CardCompanyName.ORI).cardNum("4444").yaer(21).month(4).cvc(111).build();
+                .cardCompany("ORI").cardNum("4444").yaer(21).month(4).cvc(111).build();
+        BankRegister helloBank = BankRegister.builder()
+                .bankName("HELLO").accountNo("12345678").build();
+        BankRegister kcBank = BankRegister.builder()
+                .bankName("KC").accountNo("87654321").build();
 
-        userInformationService.registerCard("chong", bdCard);
-        payUserRepository.findById("chong").ifPresent(user->log.info(user.toString()));
+        userInformationService.registerChargeMethod("chong", bdCard);
+        assertEquals(1, payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).getCardCompanyNames().size());
 
-        userInformationService.registerCard("chong", mastarCard);
-        payUserRepository.findById("chong").ifPresent(user->log.info(user.toString()));
+        userInformationService.registerChargeMethod("chong", mastarCard);
+        assertEquals(2, payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).getCardCompanyNames().size());
 
-        userInformationService.registerCard("chong", kakeoCard);
-        payUserRepository.findById("chong").ifPresent(user->log.info(user.toString()));
+        userInformationService.registerChargeMethod("chong", kakeoCard);
+        assertEquals(3, payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).getCardCompanyNames().size());
 
-        userInformationService.registerCard("chong", oriCard);
-        payUserRepository.findById("chong").ifPresent(user->log.info(user.toString()));
+        userInformationService.registerChargeMethod("chong", oriCard);
+        assertEquals(4, payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).getCardCompanyNames().size());
+
+        userInformationService.registerChargeMethod("chong", helloBank);
+        assertEquals(1, payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).getBankCompanyNames().size());
+
+        userInformationService.registerChargeMethod("chong", kcBank);
+        assertEquals(2, payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).getBankCompanyNames().size());
+
+        log.info(payUserRepository.findById("chong").orElseThrow(NoSuchElementException::new).toString());
     }
 
 }

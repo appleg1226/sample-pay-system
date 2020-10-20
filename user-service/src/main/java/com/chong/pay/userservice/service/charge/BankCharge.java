@@ -12,7 +12,7 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 @Log
-public class AccountCharge implements Charge {
+public class BankCharge implements Charge {
 
     private final PayUserRepository payUserRepository;
 

@@ -1,4 +1,4 @@
-package com.chong.pay.userservice.service.register;
+package com.chong.pay.userservice.service.register.bank;
 
 import com.chong.pay.userservice.domain.charge.RegisterForm;
 

@@ -1,8 +1,8 @@
 package com.chong.pay.userservice.service.charge;
 
-import org.springframework.stereotype.Service;
+import lombok.extern.java.Log;
 
-@Service
+@Log
 public class ChargeService {
 
     private Charge charge;
@@ -11,11 +11,12 @@ public class ChargeService {
         this.charge = charge;
     }
 
-    public boolean isRegistered(String userId){
-        return charge.checkRegistered(userId);
-    }
-
     public long chargeMoney(String userId, long money){
-        return charge.charge(userId, money);
+        if(charge.checkRegistered(userId)){
+            return charge.charge(userId, money);
+        } else{
+            log.info("not registered!");
+            return -1;
+        }
     }
 }

@@ -2,10 +2,6 @@ package com.chong.pay.userservice.service.charge;
 
 import com.chong.pay.userservice.domain.PayUser;
 import com.chong.pay.userservice.repository.PayUserRepository;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +23,7 @@ class ChargeServiceTest {
     CardCharge cardCharge;
 
     @Autowired
-    AccountCharge accountCharge;
+    BankCharge bankCharge;
 
     @Autowired
     PayUserRepository payUserRepository;
@@ -46,11 +42,8 @@ class ChargeServiceTest {
         chargeService.setChargeMethod(cardCharge);
 
         long result = 0;
-        if(chargeService.isRegistered(userId)){
-            result = chargeService.chargeMoney(userId, chargeMoney);
-        } else {
-            log.info("not exiest");
-        }
+
+        chargeService.chargeMoney(userId, chargeMoney);
 
         assertEquals(result, 15000L);
 
@@ -68,14 +61,10 @@ class ChargeServiceTest {
 
         String userId = "chong2";
         long chargeMoney = 10000L;
-        chargeService.setChargeMethod(accountCharge);
+        chargeService.setChargeMethod(bankCharge);
 
         long result = 0;
-        if(chargeService.isRegistered(userId)){
-            result = chargeService.chargeMoney(userId, chargeMoney);
-        } else {
-            log.info("not exiest");
-        }
+        chargeService.chargeMoney(userId, chargeMoney);
 
         assertEquals(result, 11500L);
 

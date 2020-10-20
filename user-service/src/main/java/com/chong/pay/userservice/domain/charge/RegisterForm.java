@@ -1,2 +1,5 @@
-package com.chong.pay.userservice.domain.charge;public interface RegisterForm {
+package com.chong.pay.userservice.domain.charge;
+
+public interface RegisterForm {
+    String getCompanyName();
 }

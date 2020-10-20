@@ -1,7 +1,7 @@
-package com.chong.pay.userservice.service.register.card;
+package com.chong.pay.userservice.service.register;
 
 import com.chong.pay.userservice.domain.charge.RegisterForm;
-import com.chong.pay.userservice.service.register.Connector;
+import com.chong.pay.userservice.service.register.card.*;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 
@@ -9,21 +9,21 @@ import org.springframework.stereotype.Component;
 @Log
 public class CardCompanyConnector implements Connector {
 
-    private CardCompany cardCompany;
+    private CardRegisterHandler cardRegisterHandler;
 
     public void setCompany(RegisterForm registerForm){
         switch (registerForm.getCompanyName()){
             case "BD":
-                this.cardCompany = new BDCard();
+                this.cardRegisterHandler = new BDCardRegisterHandler();
                 break;
             case "MASTAR":
-                this.cardCompany = new MastarCard();
+                this.cardRegisterHandler = new MastarCardRegisterHandler();
                 break;
             case "KAKEO":
-                this.cardCompany = new KakeoCard();
+                this.cardRegisterHandler = new KakeoCardRegisterHandler();
                 break;
             case "ORI":
-                this.cardCompany = new OriCard();
+                this.cardRegisterHandler = new OriCardRegisterHandler();
                 break;
         }
     }
@@ -35,7 +35,7 @@ public class CardCompanyConnector implements Connector {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return cardCompany.isValidCard(registerForm);
+        return cardRegisterHandler.isValidCard(registerForm);
     }
 
     public boolean registerCard(RegisterForm registerForm){
@@ -45,6 +45,6 @@ public class CardCompanyConnector implements Connector {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return cardCompany.registerCard(registerForm);
+        return cardRegisterHandler.registerCard(registerForm);
     }
 }
