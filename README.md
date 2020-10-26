@@ -8,7 +8,7 @@ https://appleg1226.tistory.com/3
 <br/>
 
 ## 사용 예정인 기술 스택
-- dev: java8, maven, Spring boot, spring security(jwt), spring batch, spring caching, 
+- dev: java 8, maven, kotlin, gradle, Spring boot, spring security(jwt), spring batch, spring caching, 
        spring data mongo, spring cloud
 - middle: RabbitMQ(docker), Redis(docker), MongoDB(docker), ELK Stack(docker)
 - ci/cd: docker, jenkins, kubernetes, aws(ec2), github
