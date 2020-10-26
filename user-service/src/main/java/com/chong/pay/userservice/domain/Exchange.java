@@ -20,7 +20,7 @@ public class Exchange {
     }
 
     @Id
-    private long paymentId;
+    private String paymentId;
     private EXCHANGE_TYPE exchangeType;
     private String myId;
     private String otherId;

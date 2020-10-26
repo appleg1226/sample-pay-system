@@ -2,3 +2,6 @@
 #  data:
 #    mongodb:
 #      uri: mongodb://localhost:27017/payService
+
+server:
+  port: 8080

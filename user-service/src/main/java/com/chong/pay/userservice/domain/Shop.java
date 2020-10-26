@@ -15,5 +15,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Shop {
     @Id
     private String shopId;
+    private String shopName;
     private long payMoney;
 }

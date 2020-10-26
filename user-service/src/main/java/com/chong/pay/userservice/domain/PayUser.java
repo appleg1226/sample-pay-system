@@ -26,4 +26,5 @@ public class PayUser {
     private Set<String> cardCompanyNames;
     private Set<String> bankCompanyNames;
     private long payMoney;
+    private long point;
 }

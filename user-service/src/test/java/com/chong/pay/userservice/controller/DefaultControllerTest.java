@@ -54,19 +54,19 @@ class DefaultControllerTest {
                 .build();
 
         e1 = Exchange.builder()
-                .paymentId(1L).myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)
+                .paymentId("1").myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)
                 .money(10000L).exchangeDate(LocalDateTime.of(2020, 1, 1, 0, 0)).isComplete(false).build();
         e2 = Exchange.builder()
-                .paymentId(2L).myId("chong").otherId("kakao").exchangeType(Exchange.EXCHANGE_TYPE.PAYMENT)
+                .paymentId("2").myId("chong").otherId("kakao").exchangeType(Exchange.EXCHANGE_TYPE.PAYMENT)
                 .money(9000L).exchangeDate(LocalDateTime.of(2020, 3, 1, 0, 0)).build();
         e3 = Exchange.builder()
-                .paymentId(3L).myId("chong").otherId("kakao").exchangeType(Exchange.EXCHANGE_TYPE.PAYMENT)
+                .paymentId("3").myId("chong").otherId("kakao").exchangeType(Exchange.EXCHANGE_TYPE.PAYMENT)
                 .money(9000L).exchangeDate(LocalDateTime.of(2020, 5, 1, 0, 0)).build();
         e4 = Exchange.builder()
-                .paymentId(4L).myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)
+                .paymentId("4").myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)
                 .money(-3000L).exchangeDate(LocalDateTime.of(2020, 2, 1, 0, 0)).isComplete(true).build();
         e5 = Exchange.builder()
-                .paymentId(5L).myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)
+                .paymentId("5").myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)
                 .money(6000L).exchangeDate(LocalDateTime.of(2020, 4, 1, 0, 0)).isComplete(false).build();
     }
 
