@@ -49,9 +49,18 @@ https://appleg1226.tistory.com/3
 
 ## 모듈 설명
 
-~~~
-- user-service: 유저 데이터 조회, 결제 수단 등록, 충전 기능 등을 담당한다. 
-- pay-service: 결제 서비스를 담당한다.
-- transfer-service: 송금 서비스를 담당한다.
-- 이후에 Spring cloud 관련 모듈 추가 
-~~~
+### user-service
+유저 데이터 조회, 결제 수단 등록, 충전 기능 등을 담당한다. 
+
+### pay-service
+결제 서비스를 담당한다.
+
+### transfer-service(Kotlin)
+송금 서비스를 담당한다. Kotlin으로 작성했다.
+
+### service-detection
+Spring Cloud Eureka를 이용한 서비스 detection 서버
+
+### api-gateway
+Spring Cloud Zuul을 이용한 gateway 서버
+
