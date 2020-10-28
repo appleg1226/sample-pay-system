@@ -12,6 +12,7 @@ import com.chong.pay.userservice.service.register.BankAccountConnector;
 import com.chong.pay.userservice.service.register.CardCompanyConnector;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -33,6 +34,7 @@ public class UserInformationService {
     }
 
     // 1. 한 유저의 모든 거래 기록 가져오기
+    @Cacheable(value = "exchange", key = "#userId")
     public List<Exchange> findAllExchanges(String userId){
         return exchangeRepository.findAllByMyId(userId)
                 .stream()
@@ -41,6 +43,7 @@ public class UserInformationService {
     }
 
     // 2. 한 유저의 결제 목록 가져오기
+    @Cacheable(value = "exchange", key = "#userId")
     public List<Exchange> findAllPayments(String userId){
         return exchangeRepository.findAllByMyId(userId)
                 .stream()
@@ -50,6 +53,7 @@ public class UserInformationService {
     }
 
     // 3. 한 유저의 송금 목록 가져오기
+    @Cacheable(value = "exchange", key = "#userId")
     public List<Exchange> findAllSends(String userId){
         return exchangeRepository.findAllByMyId(userId)
                 .stream()
@@ -59,6 +63,7 @@ public class UserInformationService {
     }
 
     // 4. 한 유저의 송금 보낸 목록 가져오기
+    @Cacheable(value = "exchange", key = "#userId")
     public List<Exchange> findAllSendsByOnlySend(String userId){
         return exchangeRepository.findAllByMyId(userId)
                 .stream()
@@ -69,6 +74,7 @@ public class UserInformationService {
     }
 
     // 5. 한 유저의 송금 받은 목록 가져오기
+    @Cacheable(value = "exchange", key = "#userId")
     public List<Exchange> findAllSendsByOnlyReceive(String userId){
         return exchangeRepository.findAllByMyId(userId)
                 .stream()
@@ -79,6 +85,7 @@ public class UserInformationService {
     }
 
     // 6. 한 유저의 완료되지 않은 송금 목록 가져오기
+    @Cacheable(value = "exchange", key = "#userId")
     public List<Exchange> findAllSendsNotCompleted(String userId){
         return exchangeRepository.findAllByMyId(userId)
                 .stream()

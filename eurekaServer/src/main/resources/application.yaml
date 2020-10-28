@@ -1,0 +1,12 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetchRegistry: false   # 이 속성은 다른 유레카 서버의 정보를 가져온다.
+    registerWithEureka: false  # 위와 동일
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enableSelfPreservation: false  # 개발환경에서만 false

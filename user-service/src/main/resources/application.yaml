@@ -4,4 +4,15 @@
 #      uri: mongodb://localhost:27017/payService
 
 server:
-  port: 8080
+  port: 8081
+
+spring:
+  application:
+    name: user-service
+  cache:
+    type: redis
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

@@ -18,7 +18,7 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    @PostMapping("/payment")
+    @PostMapping("/payment/processaa")
     public ResponseEntity<PaymentResponse> doPayment(@RequestBody PaymentRequest paymentRequest){
         PaymentResponse result = paymentService.runPayment(paymentRequest);
         return new ResponseEntity<>(result, HttpStatus.OK);

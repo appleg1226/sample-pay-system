@@ -6,7 +6,7 @@
 #### 1. POST /transfer/ : 송금 요청
 Body Parameter:
 ~~~
-String senduUerId;
+String sendUserId;
 String receiveUserId;
 long money;
 LocalDateTime dateTime;

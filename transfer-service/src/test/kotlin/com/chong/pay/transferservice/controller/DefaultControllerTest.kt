@@ -34,7 +34,7 @@ internal class DefaultControllerTest {
 
     @Test
     fun transferRequest() {
-        val paymentRequest = TransferRequest("c1", "c2", 100, LocalDateTime.now())
+        val paymentRequest = TransferRequest("c1", "c2", 100)
         val paymentResult = Exchange()
 
         given(defaultController.transferRequest(paymentRequest))

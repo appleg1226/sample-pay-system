@@ -28,42 +28,42 @@ public class DefaultController {
     private final UserInformationService userInformationService;
     private final PayUserRepository payUserRepository;
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PayUser> showUserInfo(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.showUserInfo(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/user/exchanges/all/{id}")
+    @GetMapping("/exchanges/all/{id}")
     public ResponseEntity<List<Exchange>> showUserExchangesList(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.findAllExchanges(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/user/exchanges/payment/{id}")
+    @GetMapping("/exchanges/payment/{id}")
     public ResponseEntity<List<Exchange>> showUserPaymentsList(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.findAllPayments(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/user/exchanges/send/{id}")
+    @GetMapping("/exchanges/send/{id}")
     public ResponseEntity<List<Exchange>> showUserSendsList(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.findAllSends(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/user/exchanges/send/to/{id}")
+    @GetMapping("/exchanges/send/to/{id}")
     public ResponseEntity<List<Exchange>> showUserOnlySendList(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.findAllSendsByOnlySend(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/user/exchanges/send/from/{id}")
+    @GetMapping("/exchanges/send/from/{id}")
     public ResponseEntity<List<Exchange>> showUserOnlyReceiveList(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.findAllSendsByOnlyReceive(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/user/exchanges/send/not-completed/{id}")
+    @GetMapping("/exchanges/send/not-completed/{id}")
     public ResponseEntity<List<Exchange>> showUserSendNotCompletedList(@PathVariable("id") String userId){
         return new ResponseEntity<>(userInformationService.findAllSendsNotCompleted(userId), HttpStatus.OK);
     }
 
-    @PostMapping("/user/register/card/{id}")
+    @PostMapping("/register/card/{id}")
     public ResponseEntity<String> registerCard(@PathVariable("id") String userId, @RequestBody CardRegister cardRegister){
         boolean result = userInformationService.registerChargeMethod(userId, cardRegister);
 
@@ -74,7 +74,7 @@ public class DefaultController {
         }
     }
 
-    @PostMapping("/user/register/bank/{id}")
+    @PostMapping("/register/bank/{id}")
     public ResponseEntity<String> registerBankAccount(@PathVariable("id") String userId, @RequestBody BankRegister bankRegister){
         boolean result = userInformationService.registerChargeMethod(userId, bankRegister);
 
@@ -85,7 +85,7 @@ public class DefaultController {
         }
     }
 
-    @PostMapping("/user/charge/card/{id}")
+    @PostMapping("/charge/card/{id}")
     public ResponseEntity<String> chargeMoneyByCard(@PathVariable("id") String userId, @RequestBody long money){
         ChargeService chargeService = new ChargeService();
         chargeService.setChargeMethod(new CardCharge(payUserRepository));
@@ -98,7 +98,7 @@ public class DefaultController {
         }
     }
 
-    @PostMapping("/user/charge/bank/{id}")
+    @PostMapping("/charge/bank/{id}")
     public ResponseEntity<String> chargeMoneyByBank(@PathVariable("id") String userId, @RequestBody long money){
         ChargeService chargeService = new ChargeService();
         chargeService.setChargeMethod(new BankCharge(payUserRepository));
