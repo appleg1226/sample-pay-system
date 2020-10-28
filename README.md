@@ -50,9 +50,9 @@ https://appleg1226.tistory.com/3
 ### transfer-service(Kotlin)
 송금 서비스를 담당한다. Kotlin으로 작성했다.
 
-### service-detection
+### eureka-server
 Spring Cloud Eureka를 이용한 서비스 detection 서버
 
-### api-gateway
+### zuul-gateway
 Spring Cloud Zuul을 이용한 gateway 서버
 
