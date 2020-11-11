@@ -4,7 +4,6 @@ import com.chong.pay.userservice.domain.Exchange;
 import com.chong.pay.userservice.domain.PayUser;
 import com.chong.pay.userservice.repository.ExchangeRepository;
 import com.chong.pay.userservice.repository.PayUserRepository;
-import com.chong.pay.userservice.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -39,6 +38,7 @@ public class UserServiceApplication implements ApplicationRunner {
 				.bankCompanyNames(new HashSet<>())
 				.build();
 		payUserRepository.save(payUser);
+		System.out.println("hi");
 
 		Exchange exchange1 = Exchange.builder()
 				.paymentId("1").myId("chong").otherId("woo").exchangeType(Exchange.EXCHANGE_TYPE.SEND)

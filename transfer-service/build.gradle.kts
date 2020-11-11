@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
 	kotlin("plugin.allopen") version "1.3.72"
+	id("com.google.cloud.tools.jib") version "2.6.0"
 }
 
 group = "com.chong.pay"
@@ -14,6 +15,13 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
+}
+
+jib{
+	to{
+		image = "kec1226/transfer-service"
+		tags = setOf("v2")
+	}
 }
 
 extra["springCloudVersion"] = "Hoxton.SR8"
